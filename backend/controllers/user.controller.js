@@ -1,6 +1,8 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../models/user.model.js";
+import Course from "../models/course.model.js";
+
 
 export const registerUser = async (req, res) => {
   try {
@@ -68,16 +70,27 @@ export const loginUser = async (req, res) => {
 };
 
 
+export const logoutUser = (req, res) => {
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+  });
+
+  res.json({ msg: "Logout successful" });
+};
+
+
+// controller/userController.js
 export const updateProfile = async (req, res) => {
   try {
-    const { id } = req.params;
     const { name, email, newPassword, oldPassword } = req.body;
 
     const updateFields = {};
     if (name) updateFields.name = name;
     if (email) updateFields.email = email;
 
-    const user = await User.findById(id);
+    const user = await User.findById(req.user.id); // secure: use user from token
     if (!user) return res.status(404).json({ message: "User not found" });
 
     if (newPassword) {
@@ -91,7 +104,7 @@ export const updateProfile = async (req, res) => {
       updateFields.password = await bcrypt.hash(newPassword, 10);
     }
 
-    const updatedUser = await User.findByIdAndUpdate(id, updateFields, {
+    const updatedUser = await User.findByIdAndUpdate(req.user.id, updateFields, {
       new: true,
     });
 
@@ -100,4 +113,5 @@ export const updateProfile = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
 

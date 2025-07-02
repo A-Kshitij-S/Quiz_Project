@@ -4,48 +4,49 @@ import QuizAttempt from "../models/quizAttempt.model.js";
 
 export const submitQuiz = async (req, res) => {
   try {
-    const { answers } = req.body; // [{ question: "id", selectedOption: "B" }]
+    const { answers } = req.body; // [{ questionId, selectedIndex }]
     const quizId = req.params.quizId;
     const userId = req.user._id;
-    console.log("REQ.USER =", req.user);
-    const quiz = await Quiz.findById(quizId).populate("questions");
 
+    const quiz = await Quiz.findById(quizId).populate("questions");
     if (!quiz) return res.status(404).json({ message: "Quiz not found" });
 
     let score = 0;
     const evaluatedAnswers = [];
 
+    // console.log("answers received:", answers);
+
     for (const ans of answers) {
-      const question = await Question.findById(ans.question);
+      const questionId =
+        typeof ans.question === "object" ? ans.question._id : ans.question;
+      const question = await Question.findById(questionId);
 
       if (!question) {
-        console.warn("Question not found:", ans.question);
-        continue; // or handle differently
+        console.warn("Question not found:", ans.questionId);
+        continue;
       }
 
-      const isCorrect = question.correctAnswer === ans.selectedOption;
-
+      const isCorrect = question.correctAnswerIndex === ans.selectedIndex;
+      // console.log(`Question: ${question._id}`);
+      // console.log(`Correct Answer Index: ${question.correctAnswerIndex}`);
+      // console.log(`Selected Index: ${ans.selectedIndex}`);
+      // console.log(`Is Correct: ${isCorrect}`);
       if (isCorrect) score++;
 
       evaluatedAnswers.push({
         question: question._id,
-        selectedOption: ans.selectedOption,
+        selectedOption: ans.selectedIndex, // ✅ This fixes the error
         isCorrect,
       });
     }
 
-    const attempt = new QuizAttempt({
-      user: req.user._id, // ✅ NOT req.user.id
+    // Save attempt
+    const attempt = await QuizAttempt.create({
+      user: userId,
       quiz: quizId,
       answers: evaluatedAnswers,
       score,
-      submittedAt: new Date(),
     });
-
-    console.log("REQ.USER =", req.user);
-    console.log("Saving attempt for user:", req.user._id); // should now log the actual ObjectId
-
-    await attempt.save();
 
     res.status(200).json({
       message: "Quiz submitted successfully",
@@ -58,11 +59,6 @@ export const submitQuiz = async (req, res) => {
   }
 };
 
-
-
-// import QuizAttempt from "../models/quizAttempt.model.js";
-// import Quiz from "../models/quiz.model.js"
-// import Question from "../models/question.model.js";
 
 export const getResult = async (req, res) => {
   try {
