@@ -11,19 +11,23 @@ export const enrollInCourse = async (req, res) => {
 
     const user = await User.findById(userId);
 
-    if (user.enrolledCourses.includes(courseId)) {
-      return res.status(400).json({ message: "Already enrolled in this course" });
+    if (user.enrolledCourses.some((id) => id.toString() === courseId)) {
+      return res
+        .status(400)
+        .json({ message: "Already enrolled in this course" });
     }
 
     user.enrolledCourses.push(courseId);
     await user.save();
 
-    res.json({ message: "Enrolled successfully", enrolledCourses: user.enrolledCourses });
+    res.json({
+      message: "Enrolled successfully",
+      enrolledCourses: user.enrolledCourses,
+    });
   } catch (err) {
     res.status(500).json({ message: "Enrollment failed", error: err.message });
   }
 };
-
 
 export const getEnrolledCourses = async (req, res) => {
   try {
@@ -34,6 +38,8 @@ export const getEnrolledCourses = async (req, res) => {
 
     res.json({ enrolledCourses: user.enrolledCourses });
   } catch (err) {
-    res.status(500).json({ message: "Error fetching enrolled courses", error: err.message });
+    res
+      .status(500)
+      .json({ message: "Error fetching enrolled courses", error: err.message });
   }
-}; 
+};

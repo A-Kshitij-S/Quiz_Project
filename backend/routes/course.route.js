@@ -9,7 +9,7 @@ import studentMiddleware from "../middlewares/studentMiddleware.js";
 
 const router = express.Router();
 
-router.post("/create",adminMiddleware, createCourse);
+router.post("/create", createCourse); //have to add admin middleware
 router.get("/", getAllCourses);
 router.get("/delete/:id", adminMiddleware, deleteCourse)
 router.post("/enroll",studentMiddleware, enrollInCourse);

@@ -63,9 +63,10 @@ export const loginUser = async (req, res) => {
         email: user.email,
         role: user.role,
       },
+      success:true
     });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ error: err.message, success:false });
   }
 };
 
@@ -75,10 +76,21 @@ export const logoutUser = (req, res) => {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "strict",
+    path: "/", // 🛠️ important!
   });
 
-  res.json({ msg: "Logout successful" });
+  res.status(200).json({ message: "Logout successful", success: true });
 };
+
+
+export const getUserProfile = (req, res) => {
+  if (!req.user) {
+    return res.status(401).json({ success: false, message: "Not logged in" });
+  }
+
+  res.json({ success: true, user: req.user });
+};
+
 
 
 // controller/userController.js
@@ -108,9 +120,9 @@ export const updateProfile = async (req, res) => {
       new: true,
     });
 
-    res.json({ msg: "User updated", user: updatedUser });
+    res.json({ msg: "User updated", user: updatedUser, success:true });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ error: err.message, success:false });
   }
 };
 

@@ -1,0 +1,67 @@
+import { useParams } from "react-router-dom";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+
+export default function CourseDetails() {
+  const { courseId } = useParams();
+  const [selectedWeek, setSelectedWeek] = useState("");
+
+  // Dummy quizzes (for now)
+  const quizzes = [
+    { id: "quiz1", title: "Intro Quiz", week: "1" },
+    { id: "quiz2", title: "Functions Quiz", week: "1" },
+    { id: "quiz3", title: "Loops Quiz", week: "2" },
+  ];
+
+  const filteredQuizzes = quizzes.filter((q) => q.week === selectedWeek);
+
+  return (
+    <div className="min-h-screen bg-black text-white px-6 py-10">
+      {/* Course Title */}
+      <h1 className="text-4xl font-bold text-[#00FFFF] mb-4 font-[Orbitron]">
+        Course: {courseId}
+      </h1>
+
+      <p className="text-white/70 max-w-xl mb-6">
+        This is a placeholder description for the course. Select a week to view its quizzes.
+      </p>
+
+      {/* Week Selector */}
+      <select
+        className="bg-[#111] border border-[#00FFFF] text-white px-4 py-2 rounded-md mb-6"
+        value={selectedWeek}
+        onChange={(e) => setSelectedWeek(e.target.value)}
+      >
+        <option value="">-- Select Week --</option>
+        {Array.from({ length: 12 }, (_, i) => (
+          <option key={i + 1} value={String(i + 1)}>
+            Week {i + 1}
+          </option>
+        ))}
+      </select>
+
+      {/* Quizzes */}
+      <div className="space-y-4">
+        {selectedWeek && filteredQuizzes.length > 0 ? (
+          filteredQuizzes.map((quiz) => (
+            <div
+              key={quiz.id}
+              className="bg-[#111] border border-[#00FFFF] rounded-lg p-4 shadow-[0_0_15px_#00FFFF40]"
+            >
+              <h3 className="text-xl text-[#00FFFF] font-bold mb-2">
+                {quiz.title}
+              </h3>
+              <Button
+                className="bg-[#FF004F] hover:shadow-[0_0_12px_#FF004F]"
+              >
+                Start Quiz
+              </Button>
+            </div>
+          ))
+        ) : selectedWeek ? (
+          <p className="text-white/60">No quizzes available for Week {selectedWeek}.</p>
+        ) : null}
+      </div>
+    </div>
+  );
+}
