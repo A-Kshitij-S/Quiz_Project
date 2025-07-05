@@ -40,9 +40,14 @@ export default function AllCourses() {
 
       } catch (error) {
         console.error(error);
-        toast.error("Enrollment failed", {
-          description: error?.response?.data?.message || "Please try again later",
-        });
+        if (!user) {
+          toast.error("user not logged in");
+        }
+        else {
+          toast.error("Enrollment failed", {
+            description: error?.response?.data?.message || "Please try again later",
+          });
+        }
       }
     };
 

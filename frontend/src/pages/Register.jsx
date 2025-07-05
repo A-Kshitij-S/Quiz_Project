@@ -7,11 +7,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { USER_API_ENDPOINT } from "../utlis/constants";
 import axios from "axios";
+import Navbar from "@/shared/Navbar";
 
 
 export default function Login() {
     const [input, setInput] = useState({
-        name:"",
+        name: "",
         email: "",
         password: "",
         role: "",
@@ -36,12 +37,12 @@ export default function Login() {
                 withCredentials: true
             });
 
-            if(res.data.success){
+            if (res.data.success) {
                 toast.success("Register successful")
                 navigate("/login")
-            
+
             }
-            
+
         } catch (err) {
             toast.error("Registration failed", {
                 description: err.response?.data?.message || "Invalid credentials",
@@ -50,16 +51,18 @@ export default function Login() {
     };
 
     return (
-        <div className="min-h-screen bg-black text-white flex items-center justify-center px-4">
-            <form
-                onSubmit={handleLogin}
-                className="w-full max-w-sm p-8 rounded-xl border-2 animate-neon-border"
-            >
-                <h2 className="text-3xl font-bold text-[#FF004F] text-center mb-6 tracking-wide">
-                    Registration Portal
-                </h2>
+        <>
+            <Navbar/>
+            <div className="min-h-screen bg-black text-white flex items-center justify-center px-4">
+                <form
+                    onSubmit={handleLogin}
+                    className="w-full max-w-sm p-8 rounded-xl border-2 animate-neon-border"
+                >
+                    <h2 className="text-3xl font-bold text-[#FF004F] text-center mb-6 tracking-wide">
+                        Registration Portal
+                    </h2>
 
-                <div className='my-2 flex flex-col'>
+                    <div className='my-2 flex flex-col'>
                         <label className='text-sm'>Name</label>
                         <input
                             type="text"
@@ -71,7 +74,7 @@ export default function Login() {
                         />
                     </div>
 
-                <div className='my-2 flex flex-col'>
+                    <div className='my-2 flex flex-col'>
                         <label className='text-sm'>Email</label>
                         <input
                             type="text"
@@ -117,17 +120,18 @@ export default function Login() {
                             </label>
                         </div>
 
-                    
 
-                </div>
+
+                    </div>
                     <Button
                         type="submit"
                         className="w-full bg-[#FF004F] text-white font-bold hover:shadow-[0_0_15px_#FF004F] my-6"
                     >
-                        Login
+                        Sign Up
                     </Button>
-                <span className='text-sm'>Don't have an account? <Link to="/signup" className="text-blue-600">Sign Up</Link></span>
-            </form>
-        </div>
+                    <span className='text-sm'>Already have an account? <Link to="/login" className="text-blue-600">Login</Link></span>
+                </form>
+            </div>
+        </>
     );
 }

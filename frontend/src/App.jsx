@@ -13,6 +13,7 @@ import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { setUser } from "./redux/authSlice";
 import { Toaster } from "sonner";
+import AdminDashboard from "./pages/AdminDashboard";
 // import Login from "./pages/Login";
 // import Dashboard from "./pages/Dashboard";
 // import CourseList from "./pages/CourseList";
@@ -51,6 +52,12 @@ const appRouter= createBrowserRouter([
   {
     path:'/profile',
     element:<Profile/>
+  },
+
+  //admin
+  {
+    path:'/admin-dashboard',
+    element:<AllCourses/>
   },
 ])
 
