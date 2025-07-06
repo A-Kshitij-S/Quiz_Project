@@ -1,4 +1,4 @@
-import { fetchQuizQuestions } from '@/redux/quixQuestion';
+import { fetchQuizQuestions, setQuestions } from '@/redux/quixQuestion';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -20,7 +20,10 @@ const QuizPage = () => {
         dispatch(fetchQuizQuestions({ courseId, weekNo }));
     }, [dispatch, courseId, weekNo]);
 
-
+    const shuffleQuestions = () => {
+        const shuffled = [...questions].sort(() => Math.random() - 0.5);
+        dispatch(setQuestions(shuffled));
+    };
 
     useEffect(() => {
         dispatch(fetchQuizQuestions({ courseId, weekNo }));
@@ -116,6 +119,18 @@ const QuizPage = () => {
                         Next Week →
                     </button>
                 </div>
+
+                {score === null && questions.length > 0 && (
+                    <div className="flex justify-center mb-6">
+                        <Button
+                            onClick={shuffleQuestions}
+                            className="bg-[#00FFFF] hover:bg-[#00c0c0] text-black px-6 py-2"
+                        >
+                            🔀 Randomize Questions
+                        </Button>
+                    </div>
+                )}
+
 
                 {questions.map((q, index) => {
                     const selected = selectedOptions[q._id];

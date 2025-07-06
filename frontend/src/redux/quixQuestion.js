@@ -6,7 +6,7 @@ export const fetchQuizQuestions = createAsyncThunk(
   'quiz/fetchQuestions',
   async ({ courseId, weekNo }, { rejectWithValue }) => {
     try {
-      const res = await axios.get(`http://localhost:3000/api/v1/question/by-course-week/${courseId}/${weekNo}`);
+      const res = await axios.get(`${QUESTIONS_API_ENDPOINT}/by-course-week/${courseId}/${weekNo}`);
       return res.data.questions;
     } catch (err) {
       return rejectWithValue(err.response?.data?.message || 'Something went wrong');
@@ -28,6 +28,9 @@ const quizQuestionSlice = createSlice({
       state.status = 'idle';
       state.error = null;
     },
+    setQuestions: (state, action) => {
+      state.questions = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -45,5 +48,5 @@ const quizQuestionSlice = createSlice({
   },
 });
 
-export const { clearQuestions } = quizQuestionSlice.actions;
+export const { clearQuestions, setQuestions } = quizQuestionSlice.actions;
 export default quizQuestionSlice.reducer;

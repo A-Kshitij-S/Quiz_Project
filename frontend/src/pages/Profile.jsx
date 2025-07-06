@@ -9,14 +9,13 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 
 export default function Profile() {
-  const [name, setName] = useState("Ankur Kshitij Sahai");
-  const [email] = useState("ankur@example.com");
-  const [role] = useState("student");
+  const [name, setName] = useState("");
+  const [email] = useState("");
+  const [role] = useState("");
   const [quizResults, setQuizResults] = useState([]);
   const [password, setPassword] = useState("");
 
-  const user = useSelector(store=> store.auth)
-  // console.log(user) 
+  const {user} = useSelector(store => store.auth)
 
   const handleUpdate = async () => {
     try {
@@ -71,7 +70,9 @@ export default function Profile() {
           Profile Settings
         </h1>
 
-        <div className="max-w-xl mx-auto bg-[#111] p-8 rounded-xl border border-[#00FFFF] shadow-[0_0_20px_#00FFFF40] space-y-6">
+        {
+          user?(
+            <div className="max-w-xl mx-auto bg-[#111] p-8 rounded-xl border border-[#00FFFF] shadow-[0_0_20px_#00FFFF40] space-y-6">
           {/* Name */}
           <div>
             <Label htmlFor="name" className="text-[#FF004F]">
@@ -79,8 +80,9 @@ export default function Profile() {
             </Label>
             <Input
               id="name"
-              className="bg-[#222] text-white mt-1"
+              className="bg-[#222] text-white mt-1 placeholder-white"
               value={name}
+              placeholder={user.name}
               onChange={(e) => setName(e.target.value)}
             />
           </div>
@@ -92,7 +94,8 @@ export default function Profile() {
             </Label>
             <Input
               id="email"
-              className="bg-[#222] text-white mt-1 cursor-not-allowed"
+              className="bg-[#222] text-white mt-1 cursor-not-allowed placeholder-white"
+              placeholder={user.email}
               value={email}
               disabled
             />
@@ -105,8 +108,9 @@ export default function Profile() {
             </Label>
             <Input
               id="role"
-              className="bg-[#222] text-white mt-1 cursor-not-allowed"
+              className="bg-[#222] text-white mt-1 cursor-not-allowed placeholder-white"
               value={role}
+              placeholder={user.role}
               disabled
             />
           </div>
@@ -136,6 +140,12 @@ export default function Profile() {
             </Button>
           </div>
         </div>
+          ):(
+            <div>
+
+            </div>
+          )
+        }
 
         {/* ✅ Quiz History */}
         <div className="mt-12">
@@ -166,6 +176,9 @@ export default function Profile() {
                           year: "numeric",
                           month: "short",
                           day: "numeric",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                          hour12: true,
                         })}
                       </p>
                     </div>
