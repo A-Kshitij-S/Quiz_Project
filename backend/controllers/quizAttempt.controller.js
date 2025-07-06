@@ -1,6 +1,5 @@
 import Quiz from "../models/quiz.model.js";
 import Question from "../models/question.model.js";
-import QuizAttempt from "../models/quizAttempt.model.js";
 
 export const submitQuiz = async (req, res) => {
   try {

@@ -14,6 +14,7 @@ import { useEffect } from "react";
 import { setUser } from "./redux/authSlice";
 import { Toaster } from "sonner";
 import AdminDashboard from "./pages/AdminDashboard";
+import QuizPage from "./pages/QuizPage";
 // import Login from "./pages/Login";
 // import Dashboard from "./pages/Dashboard";
 // import CourseList from "./pages/CourseList";
@@ -58,6 +59,12 @@ const appRouter= createBrowserRouter([
   {
     path:'/admin-dashboard',
     element:<AllCourses/>
+  },
+
+  //questions
+  {
+    path:'/question/by-course-week/:courseId/:weekNo',
+    element:<QuizPage/>
   },
 ])
 

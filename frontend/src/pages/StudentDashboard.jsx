@@ -5,25 +5,16 @@ import { ENROLLMENT_API_ENDPOINT } from "@/utlis/constants";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 export default function StudentDashboard() {
   const { user } = useSelector(store => store.auth)
 
   const dispatch = useDispatch()
+  const navigate= useNavigate()
 
   const { courses, loading, error } = useSelector((state) => state.myCourses);
-
-  // useEffect( async() => {
-  //   try {
-  //     const res= await axios.get(`${ENROLLMENT_API_ENDPOINT}/my-courses`)
-  //     console.log(res.data)
-  //     // dispatch()
-  //   } catch (error) {
-
-  //   }
-  //   dispatch(fetchMyCourses());
-  // }, []);
 
   useEffect(() => {
     dispatch(fetchMyCourses());
@@ -58,7 +49,7 @@ export default function StudentDashboard() {
                 className="bg-[#FF004F] text-white hover:shadow-[0_0_12px_#FF004F]"
                 onClick={() => {
                   // You can navigate to the course or quiz
-                  // navigate(`/courses/${course._id}`);
+                  navigate(`/courses/${course._id}`);
                 }}
               >
                 Start Quiz

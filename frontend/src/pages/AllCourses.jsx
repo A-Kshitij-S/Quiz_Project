@@ -15,6 +15,7 @@ export default function AllCourses() {
   const dispatch = useDispatch();
   const { courses, loading, error } = useSelector((state) => state.courses);
   const [courseId, setCourseId] = useState()
+  
   useEffect(() => {
     dispatch(fetchCourses());
   }, []);

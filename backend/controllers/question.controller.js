@@ -1,6 +1,6 @@
 import Question from "../models/question.model.js";
 import Week from "../models/week.model.js";
-
+import QuizResult from "../models/result.model.js"
 
 export const createQuestion = async (req, res) => {
   try {
@@ -99,3 +99,41 @@ export const submitAnswer = async (req, res) => {
     res.status(500).json({ message: "Error submitting answer", error: err.message });
   }
 };
+
+
+export const submitQuiz = async (req, res) => {
+  const userId = req.user._id;
+  const { course, week, score, total } = req.body; // ✅ match frontend keys
+
+  try {
+    const result = await QuizResult.create({
+      user: userId,
+      course,
+      week,
+      score,
+      total
+    });
+
+    res.status(201).json({ success: true, result });
+  } catch (err) {
+    console.error("QuizResult Save Error:", err);
+    res.status(500).json({ success: false, message: "Failed to save result" });
+  }
+};
+
+ 
+
+export const getUserResults = async (req, res) => {
+  try {
+    const results = await QuizResult.find({ user: req.user._id })
+      .populate("course", "title")
+      .populate("week", "number")
+      .sort({ submittedAt: -1 });
+
+    res.json(results);
+  } catch (err) {
+    console.error("❌ Failed to fetch quiz results:", err); // ✅ logs actual error
+    res.status(500).json({ message: "Error fetching quiz results" }); // ✅ correct message
+  }
+};
+

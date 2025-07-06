@@ -1,21 +1,24 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import Navbar from "@/shared/Navbar";
 
 export default function CourseDetails() {
   const { courseId } = useParams();
   const [selectedWeek, setSelectedWeek] = useState("");
 
+  const navigate= useNavigate()
+
   // Dummy quizzes (for now)
   const quizzes = [
-    { id: "quiz1", title: "Intro Quiz", week: "1" },
-    { id: "quiz2", title: "Functions Quiz", week: "1" },
-    { id: "quiz3", title: "Loops Quiz", week: "2" },
+    { id: "quiz1", title: "Quiz", week: "1" },
   ];
 
   const filteredQuizzes = quizzes.filter((q) => q.week === selectedWeek);
 
   return (
+    <>
+    <Navbar/>
     <div className="min-h-screen bg-black text-white px-6 py-10">
       {/* Course Title */}
       <h1 className="text-4xl font-bold text-[#00FFFF] mb-4 font-[Orbitron]">
@@ -53,6 +56,7 @@ export default function CourseDetails() {
               </h3>
               <Button
                 className="bg-[#FF004F] hover:shadow-[0_0_12px_#FF004F]"
+                onClick={()=> navigate(`/question/by-course-week/${courseId}/${selectedWeek}`)}
               >
                 Start Quiz
               </Button>
@@ -63,5 +67,6 @@ export default function CourseDetails() {
         ) : null}
       </div>
     </div>
+    </>
   );
 }

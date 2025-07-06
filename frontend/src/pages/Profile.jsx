@@ -1,25 +1,71 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import Navbar from "@/shared/Navbar";
+import { QUESTIONS_API_ENDPOINT, USER_API_ENDPOINT } from "@/utlis/constants";
+import axios from "axios";
+import { useSelector } from "react-redux";
 
 export default function Profile() {
   const [name, setName] = useState("Ankur Kshitij Sahai");
   const [email] = useState("ankur@example.com");
   const [role] = useState("student");
-
+  const [quizResults, setQuizResults] = useState([]);
   const [password, setPassword] = useState("");
 
-  const handleUpdate = () => {
-    toast.success("Profile updated!");
-    // Later: call API to update profile
+  const user = useSelector(store=> store.auth)
+  // console.log(user) 
+
+  const handleUpdate = async () => {
+    try {
+      const payload = {
+        name,
+      };
+
+      if (password.trim()) {
+        const oldPassword = prompt("Enter your old password:");
+        if (!oldPassword) return toast.error("Old password is required.");
+
+        payload.oldPassword = oldPassword;
+        payload.newPassword = password;
+      }
+
+      const res = await axios.post(
+        `${USER_API_ENDPOINT}/profile/update/${user._id}`,
+        payload,
+        { withCredentials: true }
+      );
+
+      toast.success("Profile updated successfully!");
+      setPassword(""); // Clear password field
+    } catch (err) {
+      console.error(err.response?.data || err.message);
+      toast.error(err.response?.data?.message || "Update failed");
+    }
   };
+
+
+  useEffect(() => {
+    const fetchResults = async () => {
+      try {
+        const res = await axios.get(`${QUESTIONS_API_ENDPOINT}/results`,
+          { withCredentials: true, }
+        );
+        setQuizResults(res.data);
+      } catch (err) {
+        console.error("❌ Failed to fetch quiz results:", err.response?.data || err.message);
+      }
+    };
+
+    fetchResults();
+  }, []);
+
 
   return (
     <>
-      <Navbar/>
+      <Navbar />
       <div className="min-h-screen bg-black text-white px-6 py-10">
         <h1 className="text-3xl font-bold text-[#00FFFF] font-[Orbitron] mb-8 drop-shadow-[0_0_10px_#00FFFF] text-center">
           Profile Settings
@@ -91,46 +137,55 @@ export default function Profile() {
           </div>
         </div>
 
-        {/* Quiz History */}
+        {/* ✅ Quiz History */}
         <div className="mt-12">
-          <h2 className="text-2xl font-semibold text-[#00FFFF] mb-4">
+          <h2 className="text-3xl font-bold text-[#00FFFF] mb-6 font-[Orbitron] drop-shadow-[0_0_10px_#00FFFF]">
             Your Quiz History
           </h2>
 
-          {/* Dummy data */}
-          {[
-            {
-              title: "Python Basics - Week 1",
-              score: "8/10",
-              date: "July 3, 2025",
-            },
-            {
-              title: "Web Dev - Week 2",
-              score: "7/10",
-              date: "June 28, 2025",
-            },
-          ].map((attempt, i) => (
-            <div
-              key={i}
-              className="bg-[#111] border border-[#FF004F] p-4 mb-4 rounded-xl shadow-[0_0_12px_#FF004F40]"
-            >
-              <div className="flex justify-between items-center">
-                <div>
-                  <h3 className="text-lg font-bold text-[#FF004F]">{attempt.title}</h3>
-                  <p className="text-white/70 text-sm">
-                    Score: {attempt.score} | Date: {attempt.date}
-                  </p>
-                </div>
-                <Button
-                  variant="outline"
-                  className="border-[#FF004F] text-[#FF004F] hover:bg-[#1a1a1a]"
-                >
-                  View Result
-                </Button>
-              </div>
+          {quizResults.length === 0 ? (
+            <p className="text-white/60 text-center">No quiz attempts yet.</p>
+          ) : (
+            <div className="grid md:grid-cols-2 gap-6">
+              {quizResults.map((attempt, i) => {
+                const percentage = Math.round((attempt.score / attempt.total) * 100);
+                const isGoodScore = percentage >= 70;
+
+                return (
+                  <div
+                    key={attempt._id}
+                    className="bg-gradient-to-br from-[#0d0d0d] to-[#1a1a1a] border border-[#FF004F] rounded-xl shadow-[0_0_15px_#FF004F50] p-6 transition hover:scale-[1.01]"
+                  >
+                    <div className="mb-2">
+                      <h3 className="text-xl font-semibold text-[#FF004F]">
+                        {attempt.course?.title || "Untitled Course"} – Week {attempt.week?.number}
+                      </h3>
+                      <p className="text-sm text-white/60">
+                        Attempted on:{" "}
+                        {new Date(attempt.submittedAt).toLocaleDateString(undefined, {
+                          year: "numeric",
+                          month: "short",
+                          day: "numeric",
+                        })}
+                      </p>
+                    </div>
+
+                    <div className="mt-4">
+                      <p className="text-white/90 mb-1 text-sm">
+                        Score:{" "}
+                        <span className={isGoodScore ? "text-green-400" : "text-red-400"}>
+                          {attempt.score}/{attempt.total} ({percentage}%)
+                        </span>
+                      </p>
+
+                    </div>
+                  </div>
+                );
+              })}
             </div>
-          ))}
+          )}
         </div>
+
 
       </div>
     </>
