@@ -13,6 +13,7 @@ export default function CourseDetails() {
   const [description, useDescription] = useState("")
 
   const dispatch = useDispatch();
+  const navigate= useNavigate()
   const { courses } = useSelector((state) => state.courses);
 
   useEffect(() => {
