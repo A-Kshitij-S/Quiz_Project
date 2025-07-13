@@ -34,9 +34,6 @@ MongoDB, Mongoose
 **Authentication and Security:**  
 JWT, bcrypt, Protected Routes, CORS, dotenv
 
-**Other:**  
-RESTful API Design, Modular Folder Structure, Error Handling Middleware
-
 ---
 
 ## Key Functionalities
