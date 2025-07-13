@@ -52,7 +52,7 @@ export default function Login() {
 
     return (
         <>
-            <Navbar/>
+            <Navbar />
             <div className="min-h-screen bg-black text-white flex items-center justify-center px-4">
                 <form
                     onSubmit={handleLogin}
@@ -110,14 +110,18 @@ export default function Login() {
                             </label>
 
                             <label className="flex items-center space-x-2">
-                                <input type="radio"
+                                <input
+                                    type="radio"
                                     name="role"
                                     value="admin"
                                     checked={input.role === "admin"}
                                     onChange={changeEventHandler}
+                                    disabled
+                                    className="cursor-not-allowed opacity-100"
                                 />
-                                <span className='cursor-pointer'>Admin</span>
+                                <span className="cursor-not-allowed text-white">Admin</span>
                             </label>
+
                         </div>
 
 
