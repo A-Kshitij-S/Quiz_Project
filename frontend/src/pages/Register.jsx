@@ -116,7 +116,7 @@ export default function Login() {
                                     value="admin"
                                     checked={input.role === "admin"}
                                     onChange={changeEventHandler}
-                                    disabled
+                                    // disabled
                                     className="cursor-not-allowed opacity-100"
                                 />
                                 <span className="cursor-not-allowed text-white">Admin</span>
