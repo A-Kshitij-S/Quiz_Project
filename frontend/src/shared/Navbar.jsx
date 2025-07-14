@@ -61,9 +61,9 @@ export default function Navbar() {
           {user && user.role === "admin" ? (
             <>
               <NavItem to="/">Home</NavItem>
-              <NavItem to="/courses">Create Course</NavItem>
+              <NavItem to="/create/course">Create Course</NavItem>
               <NavItem to="/courses">All Courses</NavItem>
-              <Button onClick={logoutHandler} variant="link">Logout</Button>
+              <Button onClick={logoutHandler} variant="link" className="text-white">Logout</Button>
             </>
           ) : (
             <>
@@ -101,7 +101,7 @@ export default function Navbar() {
                           <div className="flex items-center gap-2">
                             <LogOut className="text-[#FF004F]" />
                             <Button variant="link" className="text-white hover:text-[#FF004F]">
-                              <span onClick={logoutHandler} className="cursor-pointer">Logout</span>
+                              <span onClick={logoutHandler} className="cursor-pointer text-white ">Logout</span>
                             </Button>
                           </div>
                         </div>

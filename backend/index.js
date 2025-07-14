@@ -23,7 +23,7 @@ app.use(cors({
   }));
 app.use(express.json());
 app.use(cookieParser());
-
+ 
 const corsOption={
     origin:'http://localhost:5173',
     credentials: true

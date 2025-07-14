@@ -15,6 +15,9 @@ import { setUser } from "./redux/authSlice";
 import { Toaster } from "sonner";
 import AdminDashboard from "./pages/AdminDashboard";
 import QuizPage from "./pages/QuizPage";
+import CreateCourse from "./pages/admin/CreateCourse";
+import CreateQuestion from "./pages/admin/CreateQuestions";
+import CreateWeek from "./pages/admin/CreateWeek";
 // import Login from "./pages/Login";
 // import Dashboard from "./pages/Dashboard";
 // import CourseList from "./pages/CourseList";
@@ -60,7 +63,18 @@ const appRouter= createBrowserRouter([
     path:'/admin-dashboard',
     element:<AllCourses/>
   },
-
+  {
+    path:"/create/course",
+    element:<CreateCourse/>
+  },
+  {
+    path:"/create/week",
+    element:<CreateWeek/>
+  },
+  {
+    path:"create/question",
+    element:<CreateQuestion/>
+  },
   //questions
   {
     path:'/question/by-course-week/:courseId/:weekNo',

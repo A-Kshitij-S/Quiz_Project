@@ -1,12 +1,18 @@
 import Question from "../models/question.model.js";
 import Week from "../models/week.model.js";
 import QuizResult from "../models/result.model.js"
+import mongoose from "mongoose";
+
 
 export const createQuestion = async (req, res) => {
   try {
     const { course, weekNumber, questionText, options, correctAnswerIndex } = req.body;
 
-    const week = await Week.findOne({ course, weekNumber });
+    // console.log("course:", course);
+    // console.log("weekNumber:", weekNumber);
+
+    const week = await Week.findOne({ course, weekNumber: Number(weekNumber) });
+
     if (!week) {
       return res.status(404).json({ message: "Week not found for the given course" });
     }
@@ -24,6 +30,7 @@ export const createQuestion = async (req, res) => {
     res.status(500).json({ message: "Error creating question", error: err.message });
   }
 };
+
 
 
 
@@ -136,4 +143,38 @@ export const getUserResults = async (req, res) => {
     res.status(500).json({ message: "Error fetching quiz results" }); // ✅ correct message
   }
 };
+
+
+export const getQuestionCount = async (req, res) => {
+  try {
+    const { courseId, weekNumber } = req.body;
+
+    if (!courseId || !weekNumber) {
+      return res.status(400).json({ success: false, message: "Missing courseId or weekNumber" });
+    }
+
+    // Step 1: Get the correct week document
+    const week = await Week.findOne({
+      course: new mongoose.Types.ObjectId(courseId),
+      weekNumber: Number(weekNumber),
+    });
+
+    if (!week) {
+      return res.status(404).json({ success: false, message: "Week not found for given course" });
+    }
+
+    // Step 2: Count questions for that week ID
+    const count = await Question.countDocuments({
+      course: new mongoose.Types.ObjectId(courseId),
+      week: week._id,
+    });
+
+    return res.status(200).json({ success: true, count });
+
+  } catch (error) {
+    console.error("Error getting question count:", error);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+};
+
 

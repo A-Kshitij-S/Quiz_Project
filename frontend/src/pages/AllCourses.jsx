@@ -6,16 +6,18 @@ import { COURSE_API_ENDPOINT, ENROLLMENT_API_ENDPOINT } from "@/utlis/constants"
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 export default function AllCourses() {
 
   const { user } = useSelector((state) => state.auth);
+  const navigate = useNavigate()
 
   const dispatch = useDispatch();
   const { courses, loading, error } = useSelector((state) => state.courses);
   const [courseId, setCourseId] = useState()
-  
+
   useEffect(() => {
     dispatch(fetchCourses());
   }, []);
@@ -74,8 +76,9 @@ export default function AllCourses() {
                 {course.title}
               </h2>
               <p className="text-white/70 mb-4">{course.description}</p>
-              {
-                user?.enrolledCourses?.some(id => id === course._id) ? (
+
+              {user?.role === 'student' ? (
+                user?.enrolledCourses?.includes(course._id) ? (
                   <Button disabled className="bg-gray-600 cursor-not-allowed">
                     Already Enrolled
                   </Button>
@@ -87,12 +90,26 @@ export default function AllCourses() {
                     Enroll
                   </Button>
                 )
-              }
-
+              ) : user?.role === 'admin' ? (
+                <Button
+                  className="bg-[#00FFFF] text-black hover:shadow-[0_0_12px_#00FFFF]"
+                  onClick={() =>
+                    navigate("/create/week", {
+                      state: {
+                        courseId: course._id,
+                        courseName: course.title,
+                      },
+                    })
+                  }
+                >
+                  Add Question
+                </Button>
+              ) : null}
             </div>
           ))}
         </div>
       </div>
     </>
   );
+
 }
