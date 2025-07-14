@@ -147,11 +147,11 @@ export default function Login() {
                     <Button
                         type="submit"
                         disabled={loading}
-                        className="w-full bg-[#FF004F] text-white font-bold hover:shadow-[0_0_15px_#FF004F] my-6 flex items-center justify-center gap-2"
+                        className="w-full bg-[#FF004F] text-white font-bold hover:shadow-[0_0_15px_#FF004F] my-6 flex items-center justify-center"
                     >
                         {loading && (
                             <svg
-                                className="animate-spin h-5 w-5 text-white"
+                                className="animate-spin h-4 w-4 mr-2 text-white"
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
                                 viewBox="0 0 24 24"
