@@ -110,7 +110,7 @@ export default function Navbar() {
                               className="text-white hover:text-[#FF004F] font-semibold"
 
                             >
-                              Logout
+                              this is logout button Logout
                             </Button>
 
                           </div>
