@@ -27,7 +27,7 @@ export default function Login() {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-
+        console.log(input)
         try {
 
             const res = await axios.post(`${USER_API_ENDPOINT}/login`, input, {
