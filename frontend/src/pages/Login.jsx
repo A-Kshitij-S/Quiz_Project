@@ -144,10 +144,36 @@ export default function Login() {
 
 
                     </div>
-                    <Button type="submit" disabled={loading} className="flex items-center justify-center gap-2">
-                        {loading && <Spinner />}
+                    <Button
+                        type="submit"
+                        disabled={loading}
+                        className="w-full bg-[#FF004F] text-white font-bold hover:shadow-[0_0_15px_#FF004F] my-6 flex items-center justify-center gap-2"
+                    >
+                        {loading && (
+                            <svg
+                                className="animate-spin h-5 w-5 text-white"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                            >
+                                <circle
+                                    className="opacity-25"
+                                    cx="12"
+                                    cy="12"
+                                    r="10"
+                                    stroke="currentColor"
+                                    strokeWidth="4"
+                                ></circle>
+                                <path
+                                    className="opacity-75"
+                                    fill="currentColor"
+                                    d="M4 12a8 8 0 018-8v4l3-3-3-3v4a8 8 0 00-8 8h4z"
+                                ></path>
+                            </svg>
+                        )}
                         {loading ? "Logging in..." : "Login"}
                     </Button>
+
 
 
                     <span className='text-sm'>Don't have an account? <Link to="/register" className="text-blue-600">Sign Up</Link></span>
