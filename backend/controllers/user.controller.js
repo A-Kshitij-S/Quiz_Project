@@ -74,13 +74,14 @@ export const loginUser = async (req, res) => {
 export const logoutUser = (req, res) => {
   res.clearCookie("token", {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
-    path: "/", // 🛠️ important!
+    secure: true, // always true in cross-domain production
+    sameSite: "None", // allows cross-domain cookie removal
+    path: "/",
   });
 
   res.status(200).json({ message: "Logout successful", success: true });
 };
+
 
 
 export const getUserProfile = (req, res) => {
