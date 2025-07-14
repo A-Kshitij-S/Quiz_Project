@@ -15,12 +15,12 @@ export default function Navbar() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const { user } = useSelector(store => store.auth)
-  
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const closeMenu = () => setIsMenuOpen(false);
-  
+
   const logoutHandler = async () => {
     try {
       const res = await axios.post(
@@ -43,27 +43,31 @@ export default function Navbar() {
   };
   return (
     <nav className="bg-[#0a0a0a] text-white px-6 py-4 shadow-[0_0_20px_#00ffff] font-[Orbitron] z-50 sticky top-0">
-      {/* Top bar */}
       <div className="flex justify-between items-center">
         <div className="text-[#FF004F] font-bold text-2xl tracking-wide">
           NPTEL Quiz App
         </div>
 
-        {/* Hamburger Icon */}
         <div className="md:hidden">
           <button onClick={toggleMenu}>
             {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
         </div>
 
-        {/* Desktop Menu */}
         <div className="hidden md:flex items-center gap-6 text-lg">
           {user && user.role === "admin" ? (
             <>
               <NavItem to="/">Home</NavItem>
               <NavItem to="/create/course">Create Course</NavItem>
               <NavItem to="/courses">All Courses</NavItem>
-              <Button onClick={logoutHandler} variant="link" className="text-white">Logout</Button>
+              <Button
+                onClick={() => { logoutHandler(); closeMenu(); }}
+                variant="link"
+                className="text-white hover:text-[#FF004F] font-semibold"
+
+              >
+                Logout
+              </Button>
             </>
           ) : (
             <>
@@ -100,9 +104,15 @@ export default function Navbar() {
                           </div>
                           <div className="flex items-center gap-2">
                             <LogOut className="text-[#FF004F]" />
-                            <Button variant="link" className="text-white hover:text-[#FF004F]">
-                              <span onClick={logoutHandler} className="cursor-pointer text-white ">Logout</span>
+                            <Button
+                              onClick={() => { logoutHandler(); closeMenu(); }}
+                              variant="link"
+                              className="text-white hover:text-[#FF004F] font-semibold"
+
+                            >
+                              Logout
                             </Button>
+
                           </div>
                         </div>
                       </div>
