@@ -138,7 +138,11 @@ export default function Navbar() {
               <NavItem to="/" onClick={closeMenu}>Home</NavItem>
               <NavItem to="/courses" onClick={closeMenu}>Create Course</NavItem>
               <NavItem to="/courses" onClick={closeMenu}>All Courses</NavItem>
-              <Button onClick={() => { logoutHandler(); closeMenu(); }} variant="link">
+              <Button
+                onClick={() => { logoutHandler(); closeMenu(); }}
+                variant="link"
+                className="text-white hover:text-[#FF004F] font-semibold"
+              >
                 Logout
               </Button>
             </>
@@ -151,7 +155,11 @@ export default function Navbar() {
                 <>
                   <NavItem to="/student-dashboard" onClick={closeMenu}>My Courses</NavItem>
                   <NavItem to="/profile" onClick={closeMenu}>Profile</NavItem>
-                  <Button onClick={() => { logoutHandler(); closeMenu(); }} variant="link">
+                  <Button
+                    onClick={() => { logoutHandler(); closeMenu(); }}
+                    variant="link"
+                    className="text-white hover:text-[#FF004F] font-semibold"
+                  >
                     Logout
                   </Button>
                 </>
