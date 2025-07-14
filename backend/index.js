@@ -18,14 +18,14 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(cors({
-    origin: "http://localhost:5173", // NOT "*"
+    origin: "quiz-project-frontend-1nw2g5baw-ankur-kshitij-sahais-projects.vercel.app", // NOT "*"
     credentials: true,               // allow cookies/headers
   }));
 app.use(express.json());
 app.use(cookieParser());
  
 const corsOption={
-    origin:'http://localhost:5173',
+    origin:'quiz-project-frontend-1nw2g5baw-ankur-kshitij-sahais-projects.vercel.app',
     credentials: true
 }
 app.use(cors(corsOption))
