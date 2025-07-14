@@ -7,8 +7,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { USER_API_ENDPOINT } from "../utlis/constants";
 import axios from "axios";
-import { useDispatch } from "react-redux";
-import { setUser } from "@/redux/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { setLoading, setUser } from "@/redux/authSlice";
 import Navbar from "@/shared/Navbar";
 
 export default function Login() {
@@ -17,7 +17,7 @@ export default function Login() {
         password: "",
         role: "",
     })
-    // const { loading , user } = useSelector(store => store.auth)
+    const { loading, user } = useSelector(store => store.auth)
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
@@ -29,7 +29,7 @@ export default function Login() {
         e.preventDefault();
         console.log(input)
         try {
-
+            dispatch(setLoading(true));
             const res = await axios.post(`${USER_API_ENDPOINT}/login`, input, {
                 headers: {
                     "content-type": "application/json"
@@ -51,13 +51,17 @@ export default function Login() {
         } catch (err) {
             toast.error("Login failed", {
                 description: err.response?.data?.message || "Invalid credentials",
-            });
+            })
+
+        }
+        finally {
+            dispatch(setLoading(true));
         }
     };
 
     return (
         <>
-            <Navbar/>
+            <Navbar />
             <div className="min-h-screen bg-black text-white flex items-center justify-center px-4">
                 <form
                     onSubmit={handleLogin}
@@ -116,12 +120,10 @@ export default function Login() {
 
 
                     </div>
-                    <Button
-                        type="submit"
-                        className="w-full bg-[#FF004F] text-white font-bold hover:shadow-[0_0_15px_#FF004F] my-6"
-                    >
-                        Login
+                    <Button type="submit" disabled={loading}>
+                        {loading ? "Logging in..." : "Login"}
                     </Button>
+
                     <span className='text-sm'>Don't have an account? <Link to="/register" className="text-blue-600">Sign Up</Link></span>
                 </form>
             </div>
