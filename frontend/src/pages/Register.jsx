@@ -66,7 +66,7 @@ export default function Login() {
                         <label className='text-sm'>Name</label>
                         <input
                             type="text"
-                            placeholder='enter your email'
+                            placeholder='enter your name'
                             className='p-2 border rounded-md '
                             name='name'
                             value={input.name}
@@ -78,7 +78,7 @@ export default function Login() {
                         <label className='text-sm'>Email</label>
                         <input
                             type="text"
-                            placeholder='enter your email'
+                            placeholder='enter any dummy email it will work 😉'
                             className='p-2 border rounded-md '
                             name='email'
                             value={input.email}

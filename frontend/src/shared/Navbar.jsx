@@ -42,11 +42,11 @@ export default function Navbar() {
     }
   };
   return (
-    <nav className="bg-[#0a0a0a] text-white px-6 py-4 shadow-[0_0_20px_#00ffff] font-[Orbitron] relative z-50 sticky top-0">
+    <nav className="bg-[#0a0a0a] text-white px-6 py-4 shadow-[0_0_20px_#00ffff] font-[Orbitron] z-50 sticky top-0">
       {/* Top bar */}
       <div className="flex justify-between items-center">
         <div className="text-[#FF004F] font-bold text-2xl tracking-wide">
-          ⚡ QuizZone
+          NPTEL Quiz App
         </div>
 
         {/* Hamburger Icon */}
