@@ -205,7 +205,7 @@ const QuizPage = () => {
                 {score !== null && (
                     <div className="mt-10 text-center space-y-4">
                         <div className="text-2xl text-[#00FFAA] font-bold">
-                            You scored {score} out of {questions.length} 🎉
+                            You scored {score} out of {questions.length} 
                         </div>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center mt-4">
                             <Button
