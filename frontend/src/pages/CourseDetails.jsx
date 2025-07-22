@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import Navbar from "@/shared/Navbar";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCourses } from "@/redux/courseSlice";
+import { fetchWeeksByCourse } from "@/redux/weekSlice";
 
 export default function CourseDetails() {
   const { courseId } = useParams();
@@ -13,7 +14,7 @@ export default function CourseDetails() {
   const [description, useDescription] = useState("")
 
   const dispatch = useDispatch();
-  const navigate= useNavigate()
+  const navigate = useNavigate()
   const { courses } = useSelector((state) => state.courses);
 
   useEffect(() => {
@@ -32,10 +33,20 @@ export default function CourseDetails() {
     }
   })
 
-  const quizzes = [
-    { id: "quiz1", title: "Quiz", week: "1" },
-    { id: "quiz2", title: "Quiz", week: "2" }
-  ];
+  const { week: weeks } = useSelector(state => state.week)
+
+  useEffect(() => {
+    dispatch(fetchWeeksByCourse(courseId));
+  }, [courseId]);
+
+  const quizzes = weeks?.flatMap((w) =>
+    w.quiz.map((q) => ({
+      id: q.id,
+      title: q.title,
+      week: String(w.week)  // ensure type matches `selectedWeek`
+    }))
+  ) || [];
+
 
   const filteredQuizzes = quizzes.filter((q) => q.week === selectedWeek);
 
