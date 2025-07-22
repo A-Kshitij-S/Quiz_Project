@@ -55,13 +55,19 @@ const Home = () => {
 
       {/* Info Section */}
       <div className="max-w-4xl mx-auto bg-[#111] border border-[#00FFFF30] rounded-xl shadow-[0_0_15px_#00FFFF40] p-6 mb-10 text-white">
-        <h2 className="text-2xl font-semibold text-[#00FFFF] mb-3 drop-shadow-[0_0_5px_#00FFFF]">
+        {/* <h2 className="text-2xl font-semibold text-[#00FFFF] mb-3 drop-shadow-[0_0_5px_#00FFFF]">
           Welcome to the Quiz Portal 🎯
-        </h2>
-        <p className="text-white/80 leading-relaxed">
-          You can browse and enroll in any course in all courses. Once enrolled, you'll get access to questions. 📚<br />
-          After attempting quizzes, you can head over to your profile to check your performance and attempt history. 🧠
-        </p>
+        </h2> */}
+
+        <div className="bg-white/5 border border-[#FF004F50] rounded-xl shadow-[0_0_10px_#FF004F30] p-5 w-full max-w-md text-center">
+          <h2 className="text-2xl font-semibold text-[#00FFFF] mb-3 drop-shadow-[0_0_5px_#00FFFF]">
+            Welcome to the Quiz Portal 
+          </h2>          
+          <p className="text-sm text-white/70">
+            You can browse and enroll in any course in all courses. Once enrolled, you'll get access to questions. 📚<br />
+            After attempting quizzes, you can head over to your profile to check your performance and attempt history. 🧠
+          </p>
+        </div>
       </div>
     </div>
 
