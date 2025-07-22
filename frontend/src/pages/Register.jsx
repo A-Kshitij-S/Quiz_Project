@@ -53,14 +53,16 @@ export default function Login() {
     return (
         <>
             <Navbar />
-            <div className="bg-white/5 border border-[#FF004F50] rounded-xl shadow-[0_0_10px_#FF004F30] p-6 transition hover:scale-[1.01]">
-                <h3 className="text-xl font-semibold text-[#FF004F] mb-2">Note</h3>
-                <p className="text-sm text-white/70">
-                    If login or sign-up doesn’t work right away, give it a minute. The backend’s on a free server, so it takes a bit to wake up if it’s been idle. Thanks for your patience!
-                </p>
 
-            </div>
             <div className="min-h-screen bg-black text-white flex items-center justify-center px-4">
+
+                <div className="bg-white/5 border border-[#FF004F50] rounded-xl shadow-[0_0_10px_#FF004F30] p-5 w-full max-w-md text-center">
+                    <h3 className="text-xl font-semibold text-[#FF004F] mb-2">Note</h3>
+                    <p className="text-sm text-white/70">
+                        If login or sign-up doesn’t work right away, give it a minute. The backend’s on a free server, so it takes a bit to wake up if it’s been idle. Thanks for your patience!
+                    </p>
+                </div>
+
                 <form
                     onSubmit={handleLogin}
                     className="w-full max-w-sm p-8 rounded-xl border-2 animate-neon-border"
