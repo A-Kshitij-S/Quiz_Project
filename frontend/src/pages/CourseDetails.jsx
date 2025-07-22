@@ -34,17 +34,17 @@ export default function CourseDetails() {
 
   const quizzes = [
     { id: "quiz1", title: "Quiz", week: "1" },
-    { id: "quiz2", title: "Quiz", week: "1" },
-    { id: "quiz3", title: "Quiz", week: "1" },
-    { id: "quiz4", title: "Quiz", week: "1" },
-    { id: "quiz5", title: "Quiz", week: "1" },
-    { id: "quiz6", title: "Quiz", week: "1" },
-    { id: "quiz7", title: "Quiz", week: "1" },
-    { id: "quiz8", title: "Quiz", week: "1" },
-    { id: "quiz9", title: "Quiz", week: "1" },
-    { id: "quiz10", title: "Quiz", week: "1" },
-    { id: "quiz11", title: "Quiz", week: "1" },
-    { id: "quiz12", title: "Quiz", week: "1" },
+    { id: "quiz2", title: "Quiz", week: "2" },
+    { id: "quiz3", title: "Quiz", week: "3" },
+    { id: "quiz4", title: "Quiz", week: "4" },
+    { id: "quiz5", title: "Quiz", week: "5" },
+    { id: "quiz6", title: "Quiz", week: "6" },
+    { id: "quiz7", title: "Quiz", week: "7" },
+    { id: "quiz8", title: "Quiz", week: "8" },
+    { id: "quiz9", title: "Quiz", week: "9" },
+    { id: "quiz10", title: "Quiz", week: "10" },
+    { id: "quiz11", title: "Quiz", week: "11" },
+    { id: "quiz12", title: "Quiz", week: "12" },
   ];
 
   const filteredQuizzes = quizzes.filter((q) => q.week === selectedWeek);
