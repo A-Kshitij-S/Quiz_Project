@@ -32,9 +32,9 @@ export default function CourseDetails() {
     }
   })
 
-  // Dummy quizzes (for now)
   const quizzes = [
     { id: "quiz1", title: "Quiz", week: "1" },
+    { id: "quiz2", title: "Quiz", week: "2" }
   ];
 
   const filteredQuizzes = quizzes.filter((q) => q.week === selectedWeek);

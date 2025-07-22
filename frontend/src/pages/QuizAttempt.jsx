@@ -15,35 +15,6 @@ const shuffle = (array) => {
 export default function QuizAttempt() {
   const { quizId } = useParams();
 
-  const staticQuestions = [
-    {
-      text: "Which of these is a frontend framework?",
-      options: ["Node.js", "Django", "React", "Laravel"],
-    },
-    {
-      text: "What does HTML stand for?",
-      options: [
-        "HyperText Markup Language",
-        "Hyperlink Text Machine Language",
-        "High Transfer Machine Logic",
-        "None of these",
-      ],
-    },
-    {
-      text: "Which language is used for styling web pages?",
-      options: ["Java", "HTML", "Python", "CSS"],
-    },
-    {
-      text: "What does CSS stand for?",
-      options: [
-        "Cascading Style Sheets",
-        "Computer Styling System",
-        "Creative Style Syntax",
-        "None of these",
-      ],
-    },
-  ];
-
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState([]);
 
