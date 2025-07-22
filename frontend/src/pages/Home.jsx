@@ -56,13 +56,44 @@ const Home = () => {
       {/* Info Section */}
       <div className="max-w-4xl mx-auto bg-[#111] border border-[#00FFFF30] rounded-xl shadow-[0_0_15px_#00FFFF40] p-6 mb-10 text-white">
         <h2 className="text-2xl font-semibold text-[#00FFFF] mb-3 drop-shadow-[0_0_5px_#00FFFF]">
-          Welcome to the Quiz Portal 
+          Welcome to the Quiz Portal
         </h2>
         <p className="text-white/80 leading-relaxed">
           You can browse and enroll in any course in all courses. Once enrolled, you'll get access to questions. <br />
-          After attempting quizzes, you can head over to your profile to check your performance and attempt history. 
+          After attempting quizzes, you can head over to your profile to check your performance and attempt history.
         </p>
       </div>
+      {/* GitHub Follow/Star Section */}
+      {/* <div className="mt-10 text-center text-white/60 text-sm">
+        <p>
+          If you found this project helpful or interesting, consider giving it a ⭐ on {" GitHub "}, and follow me
+          <a
+            href="https://github.com/A-Kshitij-S"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-400 hover:underline"
+          >
+            GitHub
+          </a>{" "}
+          thanks a lot!!!
+        </p>
+      </div> */}
+      <div className="mt-10 text-center text-white/60 text-sm px-4 pb-8">
+        <p>
+          If you found this project helpful or interesting, consider giving it a ⭐ and feel free to{" "}
+          <a
+            href="https://github.com/A-Kshitij-S"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-400 hover:underline"
+          >
+            follow me on GitHub
+          </a>
+          . I'd really appreciate it!
+        </p>
+      </div>
+
+
     </div>
 
   )
