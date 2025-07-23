@@ -2,6 +2,8 @@
 
 A fullstack quiz application where users can enroll in NPTEL-style courses, attempt weekly quizzes, and track their performance over time. Built with a sleek dark-themed UI and modern tech stack to offer a seamless learning and testing experience.
 
+<img width="1306" height="676" alt="image" src="https://github.com/user-attachments/assets/c4c4117b-e4cc-4842-b1da-6bdd30d3d813" />
+
 ---
 
 ## Live Demo
