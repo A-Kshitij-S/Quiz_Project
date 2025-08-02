@@ -2,22 +2,18 @@ import { useEffect } from "react"
 import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 
-const ProtectedRoutes= ({children})=>{
-    const {user}= useSelector(store=> store.auth)
+const ProtectedRoutes = ({ children }) => {
+  const { user } = useSelector((store) => store.auth)
+  const navigate = useNavigate()
 
-    const navigate= useNavigate()
+  useEffect(() => {
+    // Assuming your user object has a role or username field
+    if (!user || user.role !== "admin") {
+      navigate("/")
+    }
+  }, [user, navigate])
 
-    useEffect(()=>{
-        if(user===null || user!=='admin'){
-            navigate("/")
-        }
-    },[])
-
-    return(
-        <>
-        {children}
-        </>
-    )
+  return <>{children}</>
 }
 
 export default ProtectedRoutes
