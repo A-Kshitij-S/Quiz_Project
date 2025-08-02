@@ -8,7 +8,7 @@ const ProtectedRoutes= ({children})=>{
     const navigate= useNavigate()
 
     useEffect(()=>{
-        if(user===NULL || user!=='admin'){
+        if(user===null || user!=='admin'){
             navigate("/")
         }
     },[])
