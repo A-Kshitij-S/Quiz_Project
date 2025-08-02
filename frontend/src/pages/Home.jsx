@@ -7,9 +7,6 @@ import { useSelector } from 'react-redux';
 const Home = () => {
   const { user } = useSelector(store => store.auth)
 
-  // if(user) console.log(user)
-
-
   return (
     <div className="min-h-screen bg-black text-white ">
       <Navbar />
@@ -63,21 +60,7 @@ const Home = () => {
           After attempting quizzes, you can head over to your profile to check your performance and attempt history.
         </p>
       </div>
-      {/* GitHub Follow/Star Section */}
-      {/* <div className="mt-10 text-center text-white/60 text-sm">
-        <p>
-          If you found this project helpful or interesting, consider giving it a ⭐ on {" GitHub "}, and follow me
-          <a
-            href="https://github.com/A-Kshitij-S"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-400 hover:underline"
-          >
-            GitHub
-          </a>{" "}
-          thanks a lot!!!
-        </p>
-      </div> */}
+      
       <div className="mt-10 text-center text-white/60 text-sm px-4 pb-8">
         <p>
           If you found this project helpful or interesting, consider giving it a ⭐ and feel free to{" "}

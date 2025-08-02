@@ -18,6 +18,7 @@ import QuizPage from "./pages/QuizPage";
 import CreateCourse from "./pages/admin/CreateCourse";
 import CreateQuestion from "./pages/admin/CreateQuestions";
 import CreateWeek from "./pages/admin/CreateWeek";
+import ProtectedRoutes from "./pages/admin/ProtectedRoutes";
 // import Login from "./pages/Login";
 // import Dashboard from "./pages/Dashboard";
 // import CourseList from "./pages/CourseList";
@@ -61,19 +62,19 @@ const appRouter= createBrowserRouter([
   //admin
   {
     path:'/admin-dashboard',
-    element:<AllCourses/>
+    element:<ProtectedRoutes> <AllCourses/> </ProtectedRoutes>
   },
   {
     path:"/create/course",
-    element:<CreateCourse/>
+    element:<ProtectedRoutes> <CreateCourse/> </ProtectedRoutes>
   },
   {
     path:"/create/week",
-    element:<CreateWeek/>
+    element: <ProtectedRoutes> <CreateWeek/> </ProtectedRoutes>
   },
   {
     path:"create/question",
-    element:<CreateQuestion/>
+    element:<ProtectedRoutes> <CreateQuestion/> </ProtectedRoutes> 
   },
   //questions
   {
