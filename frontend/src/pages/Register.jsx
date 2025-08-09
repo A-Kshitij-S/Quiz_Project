@@ -127,7 +127,7 @@ export default function Login() {
                                     onChange={changeEventHandler}
                                     disabled
                                     className="cursor-not-allowed opacity-100"
-                                    className=" opacity-100"
+                                    // className=" opacity-100"
                                 />
                                 <span className="cursor-not-allowed text-white">Admin</span>
                             </label>
